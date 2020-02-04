@@ -66,7 +66,9 @@ Gateway.send = function() {
  */
 Gateway.resolve = function(query) {
   return this.send().then(res => {
-    // console.log('res.body',res.body)
+    if( res.body && res.body.error ){
+      console.log( 'PubMed API Error', res.body.error )
+    }
     const dataObj = parse(res.body);
     // console.log('dataObj', require('util').inspect(dataObj, { showHidden: false, depth: null }))
     return query(dataObj);
